@@ -19,5 +19,4 @@ cd build
 
 echo "Building..."
 docker build -t bjartur30/tictactoe .
-echo "Composing..."
-docker-compose up
+
