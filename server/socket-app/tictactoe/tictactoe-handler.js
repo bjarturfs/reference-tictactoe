@@ -44,7 +44,18 @@ module.exports = function(injected){
                     },
                     "PlaceMove": function(cmd){
 
-                        // Check here for conditions which prevent command from altering state
+                        if(gameState.placeBoard(cmd.move)){
+                            eventHandler([{
+                                gameId: cmd.gameId,
+                                type: "MovePlaced",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            }]);
+                            return;
+                        }
 
                         gameState.processEvents(events);
 
