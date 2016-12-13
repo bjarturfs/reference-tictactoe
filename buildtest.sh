@@ -29,5 +29,8 @@ docker build -t bjartur30/tictactoe:$GIT_COMMIT .
 echo "Pushing image to Docker"
 docker push bjartur30/tictactoe:$GIT_COMMIT
 
-
+#Generating .env file to use with docker-compose file
+cat > ./build/.env <<_EOF_
+GITID=$GIT_COMMIT
+_EOF_
 
