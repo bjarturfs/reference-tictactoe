@@ -82,11 +82,23 @@ module.exports = function(injected){
 
                        
                         gameState.processEvents(events); 
-                        
+
                          if(gameState.gameWon(cmd.side)){
                            events.push({
                                 gameId: cmd.gameId,
                                 type: "GameWon",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            });
+                        } 
+
+                        if(gameState.getMoves()){
+                           events.push({
+                                gameId: cmd.gameId,
+                                type: "GameDraw",
                                 user: cmd.user,
                                 name: cmd.name,
                                 timeStamp: cmd.timeStamp,

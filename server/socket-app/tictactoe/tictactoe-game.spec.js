@@ -451,4 +451,144 @@ describe('Place move command', function () {
     })
 
 
+    it('Should not emit game draw if won on last move', function () {
+
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:32",
+                side: 'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:35",
+                side: 'X',
+                move: { ROW: 0, COL: 0 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:40",
+                side: 'O',
+                move: { ROW: 0, COL: 1 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:45",
+                side: 'X',
+                move: { ROW: 0, COL: 2 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:50",
+                side: 'O',
+                move: { ROW: 1, COL: 1 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:55",
+                side: 'X',
+                move: { ROW: 1, COL: 0 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:00",
+                side: 'O',
+                move: { ROW: 1, COL: 2 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:05",
+                side: 'X',
+                move: { ROW: 2, COL: 2 }
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:10",
+                side: 'O',
+                move: { ROW: 2, COL: 0 }
+            },
+       
+         
+        ];
+
+        when =
+        {
+            type: "PlaceMove",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:15",
+                side: 'X',
+                move: { ROW: 2, COL: 1 }
+        };
+        then = [
+            {
+            type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:15",
+                side: 'X',
+                move: { ROW: 2, COL: 1 }
+            },
+            {
+            type: "GameDraw",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:15",
+                side: 'X',
+                move: { ROW: 2, COL: 1 }
+            }
+        ];
+    })
+
 });

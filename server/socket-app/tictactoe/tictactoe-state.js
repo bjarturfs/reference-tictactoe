@@ -7,6 +7,7 @@ module.exports = function (injected) {
         var full = false;
         var board = [[-1, -1, -1],[-1, -1, -1],[-1, -1, -1]];
         var lastmove = '';
+        var moves = 0;
 
         function processEvent(event) {
             if(event.type === "GameJoined") {
@@ -16,6 +17,7 @@ module.exports = function (injected) {
             if(event.type === "MovePlaced") {
                 board[event.move.ROW][event.move.COL] = event.side;
                 lastmove = event.side;
+                moves++;
                 
             }
     
@@ -61,9 +63,14 @@ module.exports = function (injected) {
        
         }
 
+        function getMoves() {
+            return moves === 9;
+        }
+
         processEvents(history);
 
         return {
+            getMoves: getMoves,
             gameWon: gameWon,
             lastMove: lastMove,
             placeBoard: placeBoard,
