@@ -12,6 +12,11 @@ cd client
 npm install
 cd ..
 
+#Generating .env file to use with docker-compose file
+cat > ./build/.env <<_EOF_
+GITID=$GIT_COMMIT
+_EOF_
+
 echo "Clean the build repo and rebuild"
 npm run build
 
@@ -29,9 +34,5 @@ docker build -t bjartur30/tictactoe:$GIT_COMMIT .
 echo "Pushing image to Docker"
 docker push bjartur30/tictactoe:$GIT_COMMIT
 
-#Generating .env file to use with docker-compose file
-cat > ./build/.env <<_EOF_
-GITID=$GIT_COMMIT
-_EOF_
 
 scp -o StrictHostKeyChecking=no -i "~/bjartur.pem" /var/lib/jenkins/workspace/New\ Commit\ Stage\ Job/docker-compose.yaml /var/lib/jenkins/workspace/New\ Commit\ Stage\ Job/build/.env ec2-user@ec2-52-214-109-242.eu-west-1.compute.amazonaws.com:.
