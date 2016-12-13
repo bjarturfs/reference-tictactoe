@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Generate new git id
+if [ -z "$GIT_COMMIT" ]; then
+  export GIT_COMMIT=$(git rev-parse HEAD)
+fi
+
+
 echo "installing npm for jenkins"
 npm install
 cd client
