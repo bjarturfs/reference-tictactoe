@@ -37,9 +37,34 @@ module.exports = function (injected) {
             return side === lastmove;
         }
 
+        function gameWon(side) {
+            for(var i = 0; i < 3; i++){
+                    if(board[i][0] === side && board[i][1] === side &&  board[i][2] === side){
+                        return true;
+                    }
+                    if(board[0][i] === side && board[1][i] === side && board[2][i] === side){
+                        return true;
+                    }
+            }
+
+            if(board[0][0] === side && board[1][1] === side && board[2][2] === side){
+            return true;
+            }
+
+            if(board[0][2] === side && board[1][1] === side && board[2][0] === side){
+            return true;
+            }
+
+            else{
+                return false;
+            }
+       
+        }
+
         processEvents(history);
 
         return {
+            gameWon: gameWon,
             lastMove: lastMove,
             placeBoard: placeBoard,
             gameFull: gameFull,

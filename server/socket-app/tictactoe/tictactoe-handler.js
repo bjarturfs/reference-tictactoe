@@ -56,21 +56,8 @@ module.exports = function(injected){
                             }]);
                             return;
                         }
-
-                        if(gameState.placeBoard(cmd.move) == -1){
+                          if(gameState.placeBoard(cmd.move) === 'X' || gameState.placeBoard(cmd.move) === 'O'){
                             eventHandler([{
-                                gameId: cmd.gameId,
-                                type: "MovePlaced",
-                                user: cmd.user,
-                                name: cmd.name,
-                                timeStamp: cmd.timeStamp,
-                                side: cmd.side,
-                                move: cmd.move
-                            }]);
-                            return;
-                        }
-                        if(gameState.placeBoard(cmd.move) == 'X' || gameState.placeBoard(cmd.move) == 'O'){
-                        eventHandler([{
                                 gameId: cmd.gameId,
                                 type: "IllegalMove",
                                 user: cmd.user,
@@ -79,11 +66,34 @@ module.exports = function(injected){
                                 side: cmd.side,
                                 move: cmd.move
                             }]);
+                            
                             return;
-                        }    
+                        }
 
-                        gameState.processEvents(events);
+                        var events = [{
+                            gameId: cmd.gameId,
+                            type: "MovePlaced",
+                            user: cmd.user,
+                            name: cmd.name,
+                            timeStamp: cmd.timeStamp,
+                            side: cmd.side,
+                            move: cmd.move
+                        }];
 
+                       
+                        gameState.processEvents(events); 
+                        
+                         if(gameState.gameWon(cmd.side)){
+                           events.push({
+                                gameId: cmd.gameId,
+                                type: "GameWon",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            });
+                        } 
                         // Check here for conditions which may warrant additional events to be emitted.
                         eventHandler(events);
                     }
