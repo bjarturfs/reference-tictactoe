@@ -13,12 +13,14 @@ npm install
 cd ..
 
 #Generating .env file to use with docker-compose file
-cat > ./build/.env <<_EOF_
-GIT_COMMIT=$GIT_COMMIT
-_EOF_
+
 
 echo "Clean the build repo and rebuild"
 npm run build
+
+cat > ./build/.env <<_EOF_
+GIT_COMMIT=$GIT_COMMIT
+_EOF_
 
 echo "Copy Dockerfile, package.json to build and copy run.sh to build Dockerfile"
 cp ./Dockerfile ./build/
