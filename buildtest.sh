@@ -24,5 +24,10 @@ echo "Going into the build directory"
 cd build
 
 echo "Building..."
-docker build -t bjartur30/tictactoe .
+docker build -t bjartur30/tictactoe:$GIT_COMMIT .
+
+echo "Pushing image to Docker"
+docker push bjartur30/tictactoe:$GIT_COMMIT
+
+
 
