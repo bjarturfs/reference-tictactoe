@@ -34,3 +34,4 @@ cat > ./build/.env <<_EOF_
 GITID=$GIT_COMMIT
 _EOF_
 
+scp -o StrictHostKeyChecking=no -i "~/bjartur.pem" /var/lib/jenkins/workspace/New\ Commit\ Stage\ Job/docker-compose.yaml /var/lib/jenkins/workspace/New\ Commit\ Stage\ Job/build/.env ec2-user@ec2-52-214-109-242.eu-west-1.compute.amazonaws.com:.
