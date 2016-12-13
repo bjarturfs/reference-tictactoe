@@ -14,7 +14,7 @@ cd ..
 
 #Generating .env file to use with docker-compose file
 cat > ./build/.env <<_EOF_
-GITID=$GIT_COMMIT
+GIT_COMMIT=$GIT_COMMIT
 _EOF_
 
 echo "Clean the build repo and rebuild"
