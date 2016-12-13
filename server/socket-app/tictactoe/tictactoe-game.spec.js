@@ -451,7 +451,7 @@ describe('Place move command', function () {
     })
 
 
-    it('Should not emit game draw if won on last move', function () {
+    it('Should not emit game draw if no one wins on last move', function () {
 
         given = [
             {
