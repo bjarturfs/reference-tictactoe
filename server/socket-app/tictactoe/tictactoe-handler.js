@@ -44,6 +44,19 @@ module.exports = function(injected){
                     },
                     "PlaceMove": function(cmd){
 
+                        if(gameState.lastMove(cmd.side)){
+                            eventHandler([{
+                                gameId: cmd.gameId,
+                                type: "NotYourMove",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            }]);
+                            return;
+                        }
+
                         if(gameState.placeBoard(cmd.move) == -1){
                             eventHandler([{
                                 gameId: cmd.gameId,
@@ -56,7 +69,7 @@ module.exports = function(injected){
                             }]);
                             return;
                         }
-
+                        if(gameState.placeBoard(cmd.move) == 'X' || gameState.placeBoard(cmd.move) == 'O'){
                         eventHandler([{
                                 gameId: cmd.gameId,
                                 type: "IllegalMove",
@@ -67,6 +80,7 @@ module.exports = function(injected){
                                 move: cmd.move
                             }]);
                             return;
+                        }    
 
                         gameState.processEvents(events);
 

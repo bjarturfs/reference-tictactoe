@@ -204,7 +204,7 @@ describe('Place move command', function () {
                     userName: "Gummi"
                 },
                 name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:29:39",
+                timeStamp: "2014-12-02T11:29:32",
                 side: 'O'
             }
         ];
@@ -216,7 +216,7 @@ describe('Place move command', function () {
                 userName: "TheGuy"
             },
             name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:30:29",
+            timeStamp: "2014-12-02T11:29:35",
             side: 'X',
             move: { ROW: 2, COL: 2 }
         };
@@ -227,7 +227,7 @@ describe('Place move command', function () {
                     userName: "TheGuy"
                 },
                 name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:30:29",
+                timeStamp: "2014-12-02T11:29:35",
                 side: 'X',
                 move: { ROW: 2, COL: 2 }
             }
@@ -253,7 +253,7 @@ describe('Place move command', function () {
                     userName: "Gummi"
                 },
                 name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:29:39",
+                timeStamp: "2014-12-02T11:29:32",
                 side: 'O'
             },
             {
@@ -262,7 +262,7 @@ describe('Place move command', function () {
                     userName: "TheGuy"
                 },
                 name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:30:29",
+                timeStamp: "2014-12-02T11:29:35",
                 side: 'X',
                 move: { ROW: 2, COL: 2 }
             },
@@ -274,7 +274,7 @@ describe('Place move command', function () {
                 userName: "Gummi"
             },
             name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:31:29",
+            timeStamp: "2014-12-02T11:30:05",
             side: 'O',
             move: { ROW: 2, COL: 2 }
         };
@@ -285,9 +285,67 @@ describe('Place move command', function () {
                     userName: "Gummi"
                 },
                 name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:31:29",
+                timeStamp: "2014-12-02T11:30:05",
                 side: 'O',
                 move: { ROW: 2, COL: 2 }
+            }
+        ];
+    })
+
+   it('Should emit NotYourMove if attempting to make move out of turn', function () {
+
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:32",
+                side: 'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:35",
+                side: 'X',
+                move: { ROW: 1, COL: 1 }
+            },
+        ];
+
+        when =
+        {
+            type: "PlaceMove",
+            user: {
+                userName: "Gummi"
+            },
+            name: "TheFirstGame",
+            timeStamp: "2014-12-02T11:31:29",
+            side: 'X',
+            move: { ROW: 1, COL: 2 }
+        };
+        then = [
+            {
+                type: "NotYourMove",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:31:29",
+                side: 'X',
+                move: { ROW: 1, COL: 2 }
             }
         ];
     })
