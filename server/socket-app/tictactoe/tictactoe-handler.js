@@ -44,7 +44,7 @@ module.exports = function(injected){
                     },
                     "PlaceMove": function(cmd){
 
-                        if(gameState.placeBoard(cmd.move)){
+                        if(gameState.placeBoard(cmd.move) == -1){
                             eventHandler([{
                                 gameId: cmd.gameId,
                                 type: "MovePlaced",
@@ -56,6 +56,17 @@ module.exports = function(injected){
                             }]);
                             return;
                         }
+
+                        eventHandler([{
+                                gameId: cmd.gameId,
+                                type: "IllegalMove",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                move: cmd.move
+                            }]);
+                            return;
 
                         gameState.processEvents(events);
 

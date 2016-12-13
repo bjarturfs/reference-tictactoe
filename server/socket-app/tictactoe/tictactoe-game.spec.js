@@ -125,7 +125,7 @@ describe('join game command', function () {
 
     });
 
-    it('should emit FullGameJoinAttempted event when game full..implement this', function () {
+    it('should emit FullGameJoinAttempted event when game full', function () {
         given = [
             {
                 type: "GameCreated",
@@ -170,7 +170,7 @@ describe('join game command', function () {
 
 });
 
-describe('MovePlaced command', function () {
+describe('Place move command', function () {
 
     var given, when, then;
 
@@ -186,7 +186,7 @@ describe('MovePlaced command', function () {
         });
     });
 
-    it('should emit MovePlaced event', function () {
+    it('should emit MovePlaced on first game moved event', function () {
 
         given = [
             {
@@ -233,6 +233,63 @@ describe('MovePlaced command', function () {
             }
         ];
 
+    })
+
+    it('should emit IllegalMove when square is already occupied', function () {
+
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:29:39",
+                side: 'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:30:29",
+                side: 'X',
+                move: { ROW: 2, COL: 2 }
+            },
+        ];
+        when =
+        {
+            type: "PlaceMove",
+            user: {
+                userName: "Gummi"
+            },
+            name: "TheFirstGame",
+            timeStamp: "2014-12-02T11:31:29",
+            side: 'O',
+            move: { ROW: 2, COL: 2 }
+        };
+        then = [
+            {
+                type: "IllegalMove",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheFirstGame",
+                timeStamp: "2014-12-02T11:31:29",
+                side: 'O',
+                move: { ROW: 2, COL: 2 }
+            }
+        ];
     })
 
 
