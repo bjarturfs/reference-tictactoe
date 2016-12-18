@@ -12,12 +12,14 @@ cd client
 npm install
 cd ..
 
-#Generating .env file to use with docker-compose file
-
+# Run unit tests
+echo "Running unit tests"
+npm run test
 
 echo "Clean the build repo and rebuild"
 npm run build
 
+#Generating .env file to use with docker-compose file
 cat > ./build/.env <<_EOF_
 GIT_COMMIT=$GIT_COMMIT
 _EOF_
