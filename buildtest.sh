@@ -12,19 +12,8 @@ cd client
 npm install
 cd ..
 
-
-
 echo "Clean the build repo and rebuild"
 npm run build
-
-# Run unit tests
-echo "Running unit tests"
-npm run test
-rc=$?
-if [[ $rc != 0 ]] ; then
-    echo "Npm test failed with exit code " $rc
-    exit $rc
-fi
 
 #Generating .env file to use with docker-compose file
 cat > ./build/.env <<_EOF_
