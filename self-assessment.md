@@ -7,7 +7,7 @@
 
 ## Scripts
 
-- buildtest.sh - runs npm installs, builds the app, build Docker image and push it to Dockerhub. 
+- buildtest.sh - runs npm installs, builds the app, runs the unit tests, builds the Docker image and pushes it to Dockerhub. 
 
 - deploy.sh - stops old deploy, runs docker compose up on the AWS 
 
